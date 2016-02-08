@@ -91,5 +91,19 @@ var generatePunctuationMarks = function(characters) {
 };
 
 function Entencesay(sentence) {
-  this.words = sentence.split(" ");
+  var wordArray = sentence.split(" ");
+  var ordwayArray = [];
+  wordArray.forEach(function(word) {
+    var ordway = new Ordway(word);
+    ordwayArray.push(ordway);
+  });
+  this.words = ordwayArray;
 }
+
+Entencesay.prototype.ansformtray = function () {
+  var ordwayArray = [];
+  this.words.forEach(function(word) {
+    ordwayArray.push(word.ansformtray());
+  });
+  return ordwayArray;
+};

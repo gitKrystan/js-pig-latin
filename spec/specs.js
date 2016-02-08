@@ -53,13 +53,13 @@ describe('Ordway', function() {
 describe('Entencesay', function() {
   it('contains a list of words', function() {
     var testSentence = createTestSentence();
-    expect(testSentence.words).to.eql(['This', 'is', 'a', 'test', 'sentence.'])
+    expect(testSentence.words.length).to.equal(5);
   });
 
-  // it('transforms each word in the sentence', function() {
-  //   var testSentence = createTestSentence();
-  //   expect(testSentence.ansformtray()).to.eql(['Isthay', 'isay', 'ayay', 'esttay', 'entencesay.'])
-  // });
+  it('transforms each word in the sentence', function() {
+    var testSentence = createTestSentence();
+    expect(testSentence.ansformtray()).to.eql(['Isthay', 'isay', 'ayay', 'esttay', 'entencesay.']);
+  });
 });
 
 var createTestWord = function() {

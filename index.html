@@ -10,7 +10,18 @@
   <body>
     <div class="container">
       <h1>Pig Latin</h1>
-
+      <form id="translator">
+        <div class="form-group">
+          <label for="input-text">Text to Translate</label>
+          <textarea id="input-text" rows="8" cols="40" class="form-control"
+          placeholder="Enter the text to translate here."></textarea>
+        </div>
+        <button type="submit" class="btn btn-inline btn-default">Anslatetray!</button>
+      </form>
+      <div class="collapse" id="results-area">
+        <h1>Results</h1>
+        <p></p>
+      </div>
     </div>
   </body>
 </html>

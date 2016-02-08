@@ -58,7 +58,7 @@ describe('Entencesay', function() {
 
   it('transforms each word in the sentence', function() {
     var testSentence = createTestSentence();
-    expect(testSentence.ansformtray()).to.eql(['Isthay', 'isay', 'ayay', 'esttay', 'entencesay.']);
+    expect(testSentence.ansformtray()).to.equal('Isthay isay ayay esttay entencesay.');
   });
 });
 

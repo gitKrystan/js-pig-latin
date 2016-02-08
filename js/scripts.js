@@ -5,7 +5,7 @@ function Ordway(word) {
 Ordway.prototype.ansformtray = function () {
   var word = this.word.toLowerCase();
 
-  if (isVowel(word[0])) {
+  if (isVowel(word[0]) && word[0] !== 'y') {
     var results = appendWithVowelEnding(word);
   } else {
     var results = wordLoop(word);
@@ -19,8 +19,12 @@ Ordway.prototype.ansformtray = function () {
 };
 
 var isVowel = function(letter) {
-  var vowels = ['a', 'e', 'i', 'o', 'u'];
+  var vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
   return vowels.includes(letter);
+};
+
+var containsVowels = function(characters) {
+  return characters.some(char => isVowel(char));
 };
 
 var isPunctuation = function(character) {
@@ -67,18 +71,26 @@ var wordLoop = function(word) {
   var characters = word.split('');
   var punctuationMarks = generatePunctuationMarks(characters);
 
-  while(!isVowel(characters[0])) {
-    var firstLetter = characters.shift();
-    characters.push(firstLetter);
-
-    if (firstLetter === "q") {
-      characters = alsoMoveU(characters);
+  if (characters[0] === 'y') {
+    moveFirstLetterToLastLetter(characters);
+  } else if (containsVowels(characters)) {
+    while(!isVowel(characters[0])) {
+      moveFirstLetterToLastLetter(characters);
     }
   }
 
   characters.push('ay');
   characters.push(punctuationMarks);
   return characters.join('');
+};
+
+var moveFirstLetterToLastLetter = function(characters) {
+  var firstLetter = characters.shift();
+  characters.push(firstLetter);
+  if (firstLetter === "q") {
+    characters = alsoMoveU(characters);
+  }
+  return characters;
 };
 
 var generatePunctuationMarks = function(characters) {
@@ -105,5 +117,22 @@ Entencesay.prototype.ansformtray = function () {
   this.words.forEach(function(word) {
     ordwayArray.push(word.ansformtray());
   });
-  return ordwayArray;
+  return ordwayArray.join(' ');
 };
+
+
+//UI LOGIC
+
+$(function() {
+
+  $("form#translator").submit(function(event) {
+    event.preventDefault();
+
+    var inputText = $("textarea#input-text").val();
+    debugger
+    var sentence = new Entencesay(inputText);
+    $("#results-area").show();
+    $("#results-area p").text(sentence.ansformtray());
+    $("textarea#input-text").val("");
+  });
+});

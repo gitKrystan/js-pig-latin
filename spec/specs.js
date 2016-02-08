@@ -19,6 +19,47 @@ describe('Ordway', function() {
     expect(twoConsonantWord.ansformtray()).to.equal("uffstay");
     expect(threeConsonantWord.ansformtray()).to.equal("ingstray");
   });
+
+  it('moves u along with q if q is in the initial consonant string', function() {
+    var qUWord = createQUWord();
+    var sQUWord = createSQUWord();
+    expect(qUWord.ansformtray()).to.equal('ietquay');
+    expect(sQUWord.ansformtray()).to.equal('ealsquay');
+  });
+
+  it('treats Y as a consonant', function() {
+    var yWord = createBeginsWithYWord();
+    expect(yWord.ansformtray()).to.equal("ellowyay");
+  });
+
+  it('adds yay for a word that begins and ends with a vowel', function() {
+    var vowelWord = new Ordway('area');
+    expect(vowelWord.ansformtray()).to.equal('areayay');
+  });
+
+  it('consistently capitalizes word base on input capitalization', function() {
+    var capitalWord = new Ordway('Test');
+    expect(capitalWord.ansformtray()).to.equal('Esttay');
+  });
+
+  it('ends transformed words with the same punctuation', function() {
+    var punctuatedWord = new Ordway('Test!');
+    var anotherPunctuatedWord = new Ordway('area?');
+    expect(punctuatedWord.ansformtray()).to.equal('Esttay!');
+    expect(anotherPunctuatedWord.ansformtray()).to.equal('areayay?');
+  });
+});
+
+describe('Entencesay', function() {
+  it('contains a list of words', function() {
+    var testSentence = createTestSentence();
+    expect(testSentence.words).to.eql(['This', 'is', 'a', 'test', 'sentence.'])
+  });
+
+  // it('transforms each word in the sentence', function() {
+  //   var testSentence = createTestSentence();
+  //   expect(testSentence.ansformtray()).to.eql(['Isthay', 'isay', 'ayay', 'esttay', 'entencesay.'])
+  // });
 });
 
 var createTestWord = function() {
@@ -39,4 +80,20 @@ var createTwoConsonantWord = function() {
 
 var createThreeConsonantWord = function() {
   return new Ordway('string');
+};
+
+var createQUWord = function() {
+  return new Ordway('quiet');
+};
+
+var createSQUWord = function() {
+  return new Ordway('squeal');
+};
+
+var createBeginsWithYWord = function() {
+  return new Ordway('yellow');
+};
+
+var createTestSentence = function() {
+  return new Entencesay('This is a test sentence.');
 };
